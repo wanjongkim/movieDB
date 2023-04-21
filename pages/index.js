@@ -6,19 +6,8 @@ import styles from "../styles/Home.module.css"
 import TopNav from './components/topNav';
 import LatestTrailers from './components/latestTrailers';
 
-export default function Home() {
-  
-  const [trendingMovies, setTrendingMovies] = useState([]);
+export default function Home({trendingMovies, latestMovieTrailers}) {
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("/api/trending");
-      const data = await response.json();
-      setTrendingMovies(data);
-    }
-    fetchData();
-  }, [])
-  
   return (
     <>
       <Head>
@@ -50,9 +39,48 @@ export default function Home() {
               }
             </div>
           </div>
-          <LatestTrailers />
+          <LatestTrailers latestMovieTrailers={latestMovieTrailers}/>
         </main>
       </div>
     </>
   )
+
+}
+
+export async function getServerSideProps() {
+    const trendingResponse = await fetch(`${process.env.API_PATH}/api/trending`);
+    const trendingMovies = await trendingResponse.json();
+    
+    const latestMovies = await fetch(`${process.env.API_PATH}/api/latestMovieTrailers`);
+    const latestMoviesData = await latestMovies.json();
+    const latestMovieTrailers = [];
+
+    async function getTrailer(latestMoviesData) {
+      for(var i=0; i<latestMoviesData.results.length; i++) {
+        
+        const latestMoviesVideos = await fetch(`https://api.themoviedb.org/3/movie/${latestMoviesData.results[i].id}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`)
+        const videosData = await latestMoviesVideos.json();
+        const videosResult = await videosData.results;
+        
+        for(var j=0; j<videosResult.length; j++) {
+          if(videosResult[j].type === "Trailer" && videosResult[j].site === "YouTube" && videosResult[j].official === true) {
+            latestMovieTrailers.push({
+              bg: latestMoviesData.results[i].backdrop_path,
+              videoKey: videosResult[j].key,
+              original_title: latestMoviesData.results[i].title,
+              type: videosResult[j].type,
+            });
+            break;
+          }
+        }
+      }
+    }
+    await getTrailer(latestMoviesData);
+    
+    return {
+      props: {
+        trendingMovies,
+        latestMovieTrailers: latestMovieTrailers,
+      }
+    }
 }

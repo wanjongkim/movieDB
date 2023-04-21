@@ -14,6 +14,12 @@ const nextConfig = {
         hostname: 'www.themoviedb.org',
         port: '',
         pathname: '/**/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        port: '',
+        pathname: '/**/**',
       }
     ],
   },

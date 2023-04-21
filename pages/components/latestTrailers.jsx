@@ -1,53 +1,32 @@
 import Image from "next/image";
+import { useState } from "react";
+import YoutubeEmbed from "./embedVideo";
 
-const LatestTrailers = () => {
+const LatestTrailers = ({latestMovieTrailers}) => {
+
+    const [bgImageUrl, setBgImageUrl] = useState(latestMovieTrailers[0].bg); 
+
+    const img = "https://www.themoviedb.org/t/p/w1920_and_h427_multi_faces/tOUuPbywu4CW9ktyENijSxdJ5IZ.svg";
+
     return (
-        <div className="relative h-96 max-h-96 text-white px-10 pt-7" style={{maxHeight: "384px", height: "384px"}}> 
-            <Image className="transparent_bg" src={"https://www.themoviedb.org/t/p/w1920_and_h427_multi_faces/tOUuPbywu4CW9ktyENijSxdJ5IZ.jpg"} alt="img" fill={true}/>
-            <span className="font-semibold text-2xl">Latest Trailers</span>
+        <div className="relative h-96 max-h-96 text-white pt-7" style={{maxHeight: "384px", height: "384px"}}> 
+            <Image className="transparent_bg object-fill" src={`https://image.tmdb.org/t/p/original${bgImageUrl}`} alt="img" fill={true}/>
+            <span className="font-semibold text-2xl ml-7">Latest Trailers</span>
             <div className="pt-5 w-full flex flex-row overflow-x-auto gap-x-5" style={{height: "91%", maxHeight: "91%"}}>
-                <div className="monterrat flex flex-col text-center">
-                    <div className="relative w-[300px] h-[168px] rounded-xl">
-                        <Image className="object-fill rounded-xl" src={"https://www.themoviedb.org/t/p/w533_and_h300_bestv2/tOUuPbywu4CW9ktyENijSxdJ5IZ.jpg"} alt="img" fill={true}/>
-                    </div>
-                    <h2 className="font-semibold mt-2">Heaven's Gate</h2>
-                    <h2>Official Trailer</h2>
-                </div>
-                <div className="monterrat flex flex-col text-center">
-                    <div className="relative w-[300px] h-[168px] rounded-xl">
-                        <Image className="object-fill rounded-xl" src={"https://www.themoviedb.org/t/p/w533_and_h300_bestv2/tOUuPbywu4CW9ktyENijSxdJ5IZ.jpg"} alt="img" fill={true}/>
-                    </div>
-                    <h2 className="font-semibold mt-2">Heaven's Gate</h2>
-                    <h2>Official Trailer</h2>
-                </div>
-                <div className="monterrat flex flex-col text-center">
-                    <div className="relative w-[300px] h-[168px] rounded-xl">
-                        <Image className="object-fill rounded-xl" src={"https://www.themoviedb.org/t/p/w533_and_h300_bestv2/tOUuPbywu4CW9ktyENijSxdJ5IZ.jpg"} alt="img" fill={true}/>
-                    </div>
-                    <h2 className="font-semibold mt-2">Heaven's Gate</h2>
-                    <h2>Official Trailer</h2>
-                </div>
-                <div className="monterrat flex flex-col text-center">
-                    <div className="relative w-[300px] h-[168px] rounded-xl">
-                        <Image className="object-fill rounded-xl" src={"https://www.themoviedb.org/t/p/w533_and_h300_bestv2/tOUuPbywu4CW9ktyENijSxdJ5IZ.jpg"} alt="img" fill={true}/>
-                    </div>
-                    <h2 className="font-semibold mt-2">Heaven's Gate</h2>
-                    <h2>Official Trailer</h2>
-                </div>
-                <div className="monterrat flex flex-col text-center">
-                    <div className="relative w-[300px] h-[168px] rounded-xl">
-                        <Image className="object-fill rounded-xl" src={"https://www.themoviedb.org/t/p/w533_and_h300_bestv2/tOUuPbywu4CW9ktyENijSxdJ5IZ.jpg"} alt="img" fill={true}/>
-                    </div>
-                    <h2 className="font-semibold mt-2">Heaven's Gate</h2>
-                    <h2>Official Trailer</h2>
-                </div>
-                <div className="monterrat flex flex-col text-center">
-                    <div className="relative w-[300px] h-[168px] rounded-xl">
-                        <Image className="object-fill rounded-xl" src={"https://www.themoviedb.org/t/p/w533_and_h300_bestv2/tOUuPbywu4CW9ktyENijSxdJ5IZ.jpg"} alt="img" fill={true}/>
-                    </div>
-                    <h2 className="font-semibold mt-2">Heaven's Gate</h2>
-                    <h2>Official Trailer</h2>
-                </div>
+                {
+                    latestMovieTrailers !== undefined && latestMovieTrailers.length > 0 ? latestMovieTrailers.map((movie, index) => {
+                        return (
+                            <div className="monterrat flex flex-col text-center ml-7">
+                                <div onMouseEnter={()=> {setBgImageUrl(latestMovieTrailers[index].bg)}} className="relative w-[300px] h-[168px] rounded-xl overflow-hidden hover:scale-105 transform transition duration-200">
+                                    <Image className="object-fill rounded-xl" src={`https://img.youtube.com/vi/${movie.videoKey}/mqdefault.jpg`} alt="img" fill={true}/>
+                                    {/*<YoutubeEmbed embedId={latestMovieTrailers[index]} width={300} height={168}/>*/}
+                                </div>
+                                <h2 className="font-semibold mt-4">{movie.original_title}</h2>
+                                
+                            </div>
+                        )
+                    }) : <h1>Loading...</h1>
+                }
             </div>
         </div>
     );
