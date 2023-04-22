@@ -5,8 +5,9 @@ import MovieCard from './components/movieCard';
 import styles from "../styles/Home.module.css"
 import TopNav from './components/topNav';
 import LatestTrailers from './components/latestTrailers';
+import PopularMovies from './components/popularMovies';
 
-export default function Home({trendingMovies, latestMovieTrailers}) {
+export default function Home({trendingMovies, latestMovieTrailers, popular}) {
 
   return (
     <>
@@ -40,6 +41,7 @@ export default function Home({trendingMovies, latestMovieTrailers}) {
             </div>
           </div>
           <LatestTrailers latestMovieTrailers={latestMovieTrailers}/>
+          <PopularMovies popular={popular}/>
         </main>
       </div>
     </>
@@ -51,24 +53,23 @@ export async function getServerSideProps() {
     const trendingResponse = await fetch(`${process.env.API_PATH}/api/trending`);
     const trendingMovies = await trendingResponse.json();
     
-    const latestMovies = await fetch(`${process.env.API_PATH}/api/latestMovieTrailers`);
+    const latestMovies = await fetch(`${process.env.API_PATH}/api/latest_movie_trailers`);
     const latestMoviesData = await latestMovies.json();
     const latestMovieTrailers = [];
 
     async function getTrailer(latestMoviesData) {
-      for(var i=0; i<latestMoviesData.results.length; i++) {
+      for(var i=0; i<latestMoviesData.length; i++) {
         
-        const latestMoviesVideos = await fetch(`https://api.themoviedb.org/3/movie/${latestMoviesData.results[i].id}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`)
+        const latestMoviesVideos = await fetch(`${process.env.API_PATH}/api/videos/${latestMoviesData[i].id}`)
         const videosData = await latestMoviesVideos.json();
-        const videosResult = await videosData.results;
         
-        for(var j=0; j<videosResult.length; j++) {
-          if(videosResult[j].type === "Trailer" && videosResult[j].site === "YouTube" && videosResult[j].official === true) {
+        for(var j=0; j<videosData.length; j++) {
+          if(videosData[j].type === "Trailer" && videosData[j].site === "YouTube" && videosData[j].official === true) {
             latestMovieTrailers.push({
-              bg: latestMoviesData.results[i].backdrop_path,
-              videoKey: videosResult[j].key,
-              original_title: latestMoviesData.results[i].title,
-              type: videosResult[j].type,
+              bg: latestMoviesData[i].backdrop_path,
+              videoKey: videosData[j].key,
+              original_title: latestMoviesData[i].title,
+              type: videosData[j].type,
             });
             break;
           }
@@ -77,10 +78,14 @@ export async function getServerSideProps() {
     }
     await getTrailer(latestMoviesData);
     
+    const data = await fetch(`${process.env.API_PATH}/api/popular`)
+    const popular = await data.json();
+
     return {
       props: {
         trendingMovies,
         latestMovieTrailers: latestMovieTrailers,
+        popular: popular
       }
     }
 }

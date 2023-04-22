@@ -6,8 +6,6 @@ const LatestTrailers = ({latestMovieTrailers}) => {
 
     const [bgImageUrl, setBgImageUrl] = useState(latestMovieTrailers[0].bg); 
 
-    const img = "https://www.themoviedb.org/t/p/w1920_and_h427_multi_faces/tOUuPbywu4CW9ktyENijSxdJ5IZ.svg";
-
     return (
         <div className="relative h-96 max-h-96 text-white pt-7" style={{maxHeight: "384px", height: "384px"}}> 
             <Image className="transparent_bg object-fill" src={`https://image.tmdb.org/t/p/original${bgImageUrl}`} alt="img" fill={true}/>

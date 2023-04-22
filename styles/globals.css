@@ -24,6 +24,6 @@ body {
 }
 
 .transparent_bg {
-    filter: blur(2px) brightness(50%);
+    filter: blur(1px) brightness(50%);
     z-index: -1;
 }
