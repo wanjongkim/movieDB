@@ -23,7 +23,7 @@ export default function Home({trendingMovies, latestMovieTrailers, popular}) {
             <span>Welcome.</span>
             <span>Millions of movies, TV shows and people to discover. Explore now.</span>
             <form className='mt-6'>
-              <input type="text" className="w-full h-12 mt-5 pl-5 rounded-3xl outline-none" placeholder="Search for a movie, tv show, person..." />
+              <input type="text" className="w-full h-12 mt-5 px-5 rounded-3xl outline-none" placeholder="Search for a movie, tv show, person..." />
             </form>
           </div>
           <div>

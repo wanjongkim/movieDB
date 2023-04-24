@@ -11,7 +11,7 @@ const PopularMovies = ({popular}) => {
                 {
                     popular.length <= 0 ? <></> : (
                         popular.map((movie) => {
-                            return <MovieCard poster_path={movie.poster_path} title={movie.title} release_date={movie.release_date} key={movie.id}/>
+                            return <MovieCard poster_path={movie.poster_path} title={movie.title} id={movie.id} release_date={movie.release_date} key={movie.id}/>
                         })
                     )
                 }
