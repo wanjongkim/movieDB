@@ -1,16 +1,17 @@
 import Image from "next/image";
 import TopNav from "../components/topNav";
 import styles from "../../styles/Home.module.css"
+import TopBilledCast from "../components/topBilledCast";
 
 const Movie = (props) => {
     return (
         <div>
             <TopNav />
-            <div className= {[styles.searchbar, 'bg-slate-100', 'text-white'].join(" ")}>
-                <div className="flex max-w-screen-xl min-w-screen-xl" style={{margin:"0 auto", height: "570px"}}>
-                    <div className="ml-10 my-6">
+            <div className= {[styles.searchbar, 'bg-slate-100', 'text-white', 'mb-5'].join(" ")}>
+                <div className="flex max-w-screen-xl min-w-screen-xl" style={{margin:"0 auto", width:"100%", height: "570px"}}>
+                    <div className="ml-10 my-6 relative max-w-xs w-full">
                         {
-                            props.image ? <Image src={props.image} alt="loading..." width={750} height={450}/> : <></>
+                            props.image ? <Image src={props.image} alt="loading..." fill={true} priority={true}/> : <></>
                         }
                     </div>
                     <div className="my-6 pt-10 pl-8">
@@ -52,6 +53,9 @@ const Movie = (props) => {
                     </div>
                 </div>
             </div>
+            <div className="max-w-screen-xl pl-10" style={{margin: "0 auto"}}>
+                <TopBilledCast cast={props.cast}/>
+            </div>
         </div>
     )
 }
@@ -64,7 +68,6 @@ export async function getServerSideProps(context) {
 
     const data = await fetch(`${process.env.API_PATH}/api/movie?id=${id}`)
     const movieInfo = await data.json();
-    console.log(movieInfo.credits.cast);
     const crew = [];
     movieInfo.credits.crew.forEach((person) => {
         if(person.job === "Director" || person.job === "Writer") {
@@ -74,7 +77,7 @@ export async function getServerSideProps(context) {
             });
         }
     })
-
+    //console.log(movieInfo)
     return {
         props: {
             image: 'https://www.themoviedb.org/t/p/original/' + movieInfo.poster_path,
@@ -86,7 +89,12 @@ export async function getServerSideProps(context) {
             vote_average: movieInfo.vote_average,
             production_companies: movieInfo.production_companies,
             tagline: movieInfo.tagline,
-            crew: crew
+            crew: crew,
+            cast: movieInfo.credits.cast,
+            revenue: movieInfo.revenue,
+            budget: movieInfo.budget,
+            status: movieInfo.status,
+            original_language: movieInfo.original_language,
         }
     }
 }

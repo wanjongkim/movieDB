@@ -1,10 +1,17 @@
 import Image from "next/image";
 import { useState } from "react";
 import YoutubeEmbed from "./embedVideo";
+import { useRouter } from 'next/router'
 
 const LatestTrailers = ({latestMovieTrailers}) => {
 
     const [bgImageUrl, setBgImageUrl] = useState(latestMovieTrailers[0].bg); 
+    const router = useRouter();
+
+    const handleClickedMovie = (e, id) => {
+        e.preventDefault();
+        router.push(`?play=${id}`, undefined, {shallow: true});
+    }
 
     return (
         <div className="relative h-96 max-h-96 text-white pt-7" style={{maxHeight: "384px", height: "384px"}}> 
@@ -14,7 +21,7 @@ const LatestTrailers = ({latestMovieTrailers}) => {
                 {
                     latestMovieTrailers !== undefined && latestMovieTrailers.length > 0 ? latestMovieTrailers.map((movie, index) => {
                         return (
-                            <div key={movie.videoKey} className="monterrat flex flex-col text-center ml-7">
+                            <div key={movie.videoKey} className="monterrat flex flex-col text-center ml-7" onClick={(e)=>handleClickedMovie(e, movie.videoKey)}>
                                 <div onMouseEnter={()=> {setBgImageUrl(latestMovieTrailers[index].bg)}} className="relative w-[300px] h-[168px] rounded-xl overflow-hidden hover:scale-105 transform transition duration-200">
                                     <Image className="object-fill rounded-xl" src={`https://img.youtube.com/vi/${movie.videoKey}/mqdefault.jpg`} alt="img" fill={true}/>
                                     {/*<YoutubeEmbed embedId={latestMovieTrailers[index]} width={300} height={168}/>*/}

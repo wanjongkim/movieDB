@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
 import MovieCard from './components/movieCard';
 import styles from "../styles/Home.module.css"
 import TopNav from './components/topNav';
@@ -66,6 +64,7 @@ export async function getServerSideProps() {
         for(var j=0; j<videosData.length; j++) {
           if(videosData[j].type === "Trailer" && videosData[j].site === "YouTube" && videosData[j].official === true) {
             latestMovieTrailers.push({
+              id: latestMoviesData[i].id,
               bg: latestMoviesData[i].backdrop_path,
               videoKey: videosData[j].key,
               original_title: latestMoviesData[i].title,
