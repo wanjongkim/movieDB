@@ -3,7 +3,7 @@ import Link from "next/link";
 const TopNav = () => {
     return (
         <div className="bg-[#032541]">
-            <nav className="flex max-w-screen-xl min-w-screen-xl justify-between h-16 text-white font-semibold px-5" style={{margin: "0 auto"}}>
+            <nav className="flex max-w-screen-2xl min-w-screen-2xl justify-between h-16 text-white font-semibold px-5" style={{margin: "0 auto"}}>
                 <ul className="flex ml-5 gap-x-6 items-center">
                     <li className="text-3xl home_icon font-bold"><Link href="/">TMDB</Link></li>
                     <li>Movies</li>

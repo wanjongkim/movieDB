@@ -16,7 +16,7 @@ export default function Home({trendingMovies, latestMovieTrailers, popular}) {
       </Head>
       <div>
         <TopNav />
-        <main className='px-5 max-w-screen-xl' style={{margin: "0 auto"}}>
+        <main className='px-10 max-w-screen-2xl' style={{margin: "0 auto"}}>
           <div className={[styles.searchbar, "h-80", "flex", "flex-col", "text-white", "px-10", "pt-20", "monterrat", ""].join(" ")} >
             <span>Welcome.</span>
             <span>Millions of movies, TV shows and people to discover. Explore now.</span>

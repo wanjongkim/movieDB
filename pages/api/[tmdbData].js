@@ -22,7 +22,7 @@ export default async function handler(req, res) {
             break;
         }
         case 'movie': {
-            api_path = movie_api_path + req.query.id + `?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=videos,images,credits`
+            api_path = movie_api_path + req.query.id + `?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=videos,images,credits,keywords,recommendations,reviews`
             const response = await fetch(api_path);
             const data = await response.json();
             res.status(200).json(data);

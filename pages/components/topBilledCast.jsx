@@ -17,8 +17,8 @@ const TopBilledCast = ({ cast }) => {
     
     return (
         <div>
-            <h2 className="font-semibold text-xl mb-6">Top Popular Cast</h2>
-            <div className="flex flex-row overflow-x-auto gap-x-5 gap-y-5">
+            <h2 className="font-bold text-2xl mb-6">Top Popular Cast</h2>
+            <div className="flex flex-row overflow-x-auto gap-x-5 gap-y-5 ">
                 {
                     cast !== undefined ? (
                         cast.map((actor) => {

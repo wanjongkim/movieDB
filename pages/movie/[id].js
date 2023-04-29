@@ -4,11 +4,32 @@ import styles from "../../styles/Home.module.css"
 import TopBilledCast from "../components/topBilledCast";
 
 const Movie = (props) => {
+
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      });
+
+    function getFormattedDate(date) {
+        var year = date.getFullYear();
+        
+        var month = (1 + date.getMonth()).toString();
+        month = month.length > 1 ? month : '0' + month;
+        
+        var day = date.getDate().toString();
+        day = day.length > 1 ? day : '0' + day;
+        
+        return month + '/' + day + '/' + year;
+    }
+
+    const authorDate = getFormattedDate(new Date(props.reviews[0].created_at));
+
     return (
         <div>
             <TopNav />
             <div className= {[styles.searchbar, 'bg-slate-100', 'text-white', 'mb-5'].join(" ")}>
-                <div className="flex max-w-screen-xl min-w-screen-xl" style={{margin:"0 auto", width:"100%", height: "570px"}}>
+                <div className="flex max-w-screen-2xl min-w-screen-2xl" style={{margin:"0 auto", width:"100%", height: "570px"}}>
                     <div className="ml-10 my-6 relative max-w-xs w-full">
                         {
                             props.image ? <Image src={props.image} alt="loading..." fill={true} priority={true}/> : <></>
@@ -53,8 +74,91 @@ const Movie = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="max-w-screen-xl pl-10" style={{margin: "0 auto"}}>
+            <div className="max-w-screen-2xl px-10" style={{margin: "0 auto"}}>
                 <TopBilledCast cast={props.cast}/>
+                <div className="flex gap-x-5 max-w-full">
+                    <div>
+                        <b>Status</b>
+                        <p>{props.status}</p>
+                    </div>
+                    <div>
+                        <b>Original Language</b>
+                        <p>{props.original_language}</p>
+                    </div>
+                    <div>
+                        <b>Budget</b>
+                        <p>{props.budget <= 0 ? '-' : formatter.format(props.budget)}</p>
+                    </div>
+                    <div>
+                        <b>Revenue</b>
+                        <p>{
+                        props.revenue <= 0 ? '-' : formatter.format(props.revenue)}</p>
+                    </div>
+                    <br/>
+                
+                </div>
+                <div className="mt-6">
+                    <b>Keywords</b>
+                    <div className="flex flex-wrap gap-x-3 gap-y-3 mt-2">
+                    {props.keywords.map((keyword, index) => {
+                        return <h2 key={keyword.name} className="rounded-2xl bg-slate-400 px-2 py-1">{keyword.name}</h2>
+                    })}
+                    </div>
+                </div>
+            </div>
+            <div className="max-w-screen-2xl px-10" style={{margin: "0 auto"}}>
+                <div className="mt-10">
+                    <hr className=" border-t-2 mb-10"/>
+                    <div className="flex items-end gap-5">
+                        <b className="text-2xl">Social</b>
+                        <b className="text-md">Reviews {props.reviews !== undefined ? props.reviews.length: "0"}</b>
+                    </div>
+                    
+                    <div className="flex flex-col">
+                        <div className="flex items-end gap-x-7">
+                            <b className="text-xl">A review by {props.reviews[0].author}</b>
+                            <div className="text-white bg-black flex items-center gap-x-1 rounded-lg px-2 py-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                </svg>
+                                <p>{props.reviews[0].author_details.rating}</p>
+                            </div>
+                            
+                        </div>
+                        <div>
+                            <p>Written by {props.reviews[0].author} on {authorDate}</p>
+                        </div>
+                        <div className="mt-4">
+                            <p style={{whiteSpace: "pre-line"}}>{props.reviews[0].content}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="max-w-screen-2xl px-10" style={{margin: "0 auto"}}>
+                <div className="mt-10">
+                    <hr className=" border-t-2 mb-10"/>
+                    <b className="text-2xl">Recommendations</b>
+                    <div className="flex overflow-x-auto gap-x-3 gap-y-3 mt-6">
+                    
+                    {props.recommendations.length <= 0 ? <div>We don't have enough data to suggest any movies based on {props.title}. You can help by rating movies you've seen.</div> :
+                    props.recommendations.map((movie, index) => {
+                        if (movie.poster_path === null || movie.poster_path === undefined) {
+                            return <></>
+                        }
+                        return (
+                            <div key={movie.id} className="relative min-w-fit">
+                                <Image src={'https://www.themoviedb.org/t/p/original/' + movie.poster_path} alt="loading..." width={200} height={300} layout="fixed" />
+                                <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent"></div>
+                                <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end px-2 py-2">
+                                    <h2 className="text-white font-semibold">{movie.title}</h2>
+                                    <h2 className="text-white font-thin">{authorDate}</h2>
+                                </div>
+                            </div>
+                        )
+                    })}
+                    </div>
+                </div>
             </div>
         </div>
     )
@@ -69,6 +173,7 @@ export async function getServerSideProps(context) {
     const data = await fetch(`${process.env.API_PATH}/api/movie?id=${id}`)
     const movieInfo = await data.json();
     const crew = [];
+    console.log(movieInfo.reviews.results)
     movieInfo.credits.crew.forEach((person) => {
         if(person.job === "Director" || person.job === "Writer") {
             crew.push({
@@ -77,7 +182,6 @@ export async function getServerSideProps(context) {
             });
         }
     })
-    //console.log(movieInfo)
     return {
         props: {
             image: 'https://www.themoviedb.org/t/p/original/' + movieInfo.poster_path,
@@ -95,6 +199,9 @@ export async function getServerSideProps(context) {
             budget: movieInfo.budget,
             status: movieInfo.status,
             original_language: movieInfo.original_language,
+            keywords: movieInfo.keywords.keywords,
+            recommendations: movieInfo.recommendations.results,
+            reviews: movieInfo.reviews.results
         }
     }
 }
