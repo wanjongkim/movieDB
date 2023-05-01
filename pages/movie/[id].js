@@ -2,6 +2,7 @@ import Image from "next/image";
 import TopNav from "../components/topNav";
 import styles from "../../styles/Home.module.css"
 import TopBilledCast from "../components/topBilledCast";
+import Link from "next/link";
 
 const Movie = (props) => {
 
@@ -9,7 +10,7 @@ const Movie = (props) => {
         style: 'currency',
         currency: 'USD',
         maximumFractionDigits: 0,
-      });
+    });
 
     function getFormattedDate(date) {
         var year = date.getFullYear();
@@ -26,7 +27,7 @@ const Movie = (props) => {
     const authorDate = getFormattedDate(new Date(props.reviews[0].created_at));
 
     return (
-        <div>
+        <div className="pb-20">
             <TopNav />
             <div className= {[styles.searchbar, 'bg-slate-100', 'text-white', 'mb-5'].join(" ")}>
                 <div className="flex max-w-screen-2xl min-w-screen-2xl" style={{margin:"0 auto", width:"100%", height: "570px"}}>
@@ -111,10 +112,10 @@ const Movie = (props) => {
                     <hr className=" border-t-2 mb-10"/>
                     <div className="flex items-end gap-5">
                         <b className="text-2xl">Social</b>
-                        <b className="text-md">Reviews {props.reviews !== undefined ? props.reviews.length: "0"}</b>
+                        <b className="text-md border-b-4 border-black">Reviews {props.reviews !== undefined ? props.reviews.length: "0"}</b>
                     </div>
                     
-                    <div className="flex flex-col">
+                    <div className="flex flex-col box_shadow mt-5 rounded-lg p-5 mb-5">
                         <div className="flex items-end gap-x-7">
                             <b className="text-xl">A review by {props.reviews[0].author}</b>
                             <div className="text-white bg-black flex items-center gap-x-1 rounded-lg px-2 py-1">
@@ -126,12 +127,14 @@ const Movie = (props) => {
                             
                         </div>
                         <div>
-                            <p>Written by {props.reviews[0].author} on {authorDate}</p>
+                            <p className=" text-gray-400 font-thin text-base">Written by {props.reviews[0].author} on {authorDate}</p>
                         </div>
-                        <div className="mt-4">
-                            <p style={{whiteSpace: "pre-line"}}>{props.reviews[0].content}</p>
+                        <div className="mt-8">
+                            <p className="" style={{whiteSpace: "pre-line"}}>{props.reviews[0].content}</p>
+                            
                         </div>
                     </div>
+                    <Link className="font-semibold text-lg" href={`${props.id}/reviews`}>Read All Reviews</Link>
                 </div>
             </div>
 
@@ -152,7 +155,7 @@ const Movie = (props) => {
                                 <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end px-2 py-2">
                                     <h2 className="text-white font-semibold">{movie.title}</h2>
-                                    <h2 className="text-white font-thin">{authorDate}</h2>
+                                    <h2 className="text-white font-thin">{movie.release_date}</h2>
                                 </div>
                             </div>
                         )
@@ -173,7 +176,7 @@ export async function getServerSideProps(context) {
     const data = await fetch(`${process.env.API_PATH}/api/movie?id=${id}`)
     const movieInfo = await data.json();
     const crew = [];
-    console.log(movieInfo.reviews.results)
+    console.log(movieInfo.recommendations.results)
     movieInfo.credits.crew.forEach((person) => {
         if(person.job === "Director" || person.job === "Writer") {
             crew.push({
@@ -184,6 +187,7 @@ export async function getServerSideProps(context) {
     })
     return {
         props: {
+            id: movieInfo.id,
             image: 'https://www.themoviedb.org/t/p/original/' + movieInfo.poster_path,
             title: movieInfo.title,
             release_date: movieInfo.release_date,
