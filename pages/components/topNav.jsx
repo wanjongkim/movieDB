@@ -14,7 +14,7 @@ const TopNav = () => {
                         Movies
                         {
                             showMovieMenu ?
-                            <ul className="absolute flex flex-col gap-y-2 py-2 bg-[#ffffff] text-black w-[200px] rounded-lg mt-2 font-normal">
+                            <ul className="z-50 absolute flex flex-col gap-y-2 py-2 bg-[#ffffff] text-black w-[200px] rounded-lg mt-2 font-normal">
                                 <Link href="/popular" className="hover:bg-slate-100 py-1 pl-7">Popular</Link>
                                 <Link href="/playing" className="hover:bg-slate-100 py-1 pl-7">Now Playing</Link>
                                 <Link href="/upcoming" className="hover:bg-slate-100 py-1 pl-7">Upcoming</Link>

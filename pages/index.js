@@ -32,7 +32,7 @@ export default function Home({trendingMovies, latestMovieTrailers, popular}) {
               {
                 trendingMovies.length <= 0 ? <></> : (
                   trendingMovies.map((movie) => {
-                    return <MovieCard id={movie.id} poster_path={movie.poster_path} title={movie.title} release_date={movie.release_date} key={movie.id}/>
+                    return <MovieCard id={movie.id} poster_path={movie.poster_path} title={movie.title} release_date={movie.release_date} key={movie.id} width={"160"} height={"200"} minHeight={"380px"}/>
                   })
                 )
               }
