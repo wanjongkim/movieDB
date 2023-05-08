@@ -35,6 +35,15 @@ body {
     border: "1px solid #ffffff";
 }
 
+.auto_fit {
+    grid-template-columns: repeat(auto-fill, 240px);
+    grid-gap: 1rem;
+}
+
+.ba {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .test {
     border: 1px solid red;
 }

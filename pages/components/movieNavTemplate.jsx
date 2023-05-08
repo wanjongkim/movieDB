@@ -8,9 +8,9 @@ const MovieNavTemplate = ({ data, title }) => {
             <TopNav />
             <div className="max-w-screen-2xl px-10 pt-10" style={{margin: "0 auto"}}>
                 <h1 className="font-normal text-3xl">{title}</h1>
-                <div className="flex mt-8 max-w-full">
+                <div className="flex mt-8">
                     <Filter />
-                    <div className="flex flex-wrap gap-4 justify-evenly">
+                    <div className="flex justify-center flex-wrap gap-5" >
                         {
                             
                             data.map((movie, index) => {
@@ -20,7 +20,7 @@ const MovieNavTemplate = ({ data, title }) => {
                            
                         }
                         
-                        <button className="w-full bg-[#46acdb] flex justify-center py-4 rounded-xl">
+                        <button className="min-w-[240px] bg-[#46acdb] py-4 rounded-xl">
                             <div className="text-white text-xl font-bold" >
                                 Load More
                             </div>

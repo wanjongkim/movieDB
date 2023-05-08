@@ -1,6 +1,3 @@
-import MovieCard from "../components/movieCard"
-import TopNav from "../components/topNav"
-import Filter from "../components/filter"
 import MovieNavTemplate from "../components/movieNavTemplate"
 
 const Popular = (props) => {

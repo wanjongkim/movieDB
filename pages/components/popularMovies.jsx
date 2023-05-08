@@ -7,7 +7,7 @@ const PopularMovies = ({popular}) => {
                 <h1 className='mb-4 mt-6 font-semibold text-2xl monterrat'>What's Popular</h1>
             </div>
             <div className='flex justify-center'>
-                <div className='max-w-screen-2xl flex flex-row overflow-x-auto gap-x-5 gap-y-5 pb-10'>
+                <div className='max-w-screen-2xl flex flex-row overflow-x-auto gap-x-5 gap-y-5 pb-10 pl-1'>
                 {
                     popular.length <= 0 ? <></> : (
                         popular.map((movie) => {

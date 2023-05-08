@@ -18,7 +18,7 @@ const TopNav = () => {
                                 <Link href="/popular" className="hover:bg-slate-100 py-1 pl-7">Popular</Link>
                                 <Link href="/playing" className="hover:bg-slate-100 py-1 pl-7">Now Playing</Link>
                                 <Link href="/upcoming" className="hover:bg-slate-100 py-1 pl-7">Upcoming</Link>
-                                <Link href="/top" className="hover:bg-slate-100 py-1 pl-7">Top Rated</Link>
+                                <Link href="/top-rated" className="hover:bg-slate-100 py-1 pl-7">Top Rated</Link>
                             </ul> : <></>
                         }
                     </li>

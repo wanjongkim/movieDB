@@ -2,7 +2,7 @@ import MovieNavTemplate from "../components/movieNavTemplate"
 
 const Playing = (props) => {
     return (
-        <MovieNavTemplate title="Playing Movies" data={props.playing}/>
+        <MovieNavTemplate title="Now Playing Movies" data={props.playing}/>
     )
 }
 
