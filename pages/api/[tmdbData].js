@@ -1,10 +1,10 @@
 const latestMovieTrailers_api_path = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`;
 const trending_api_path = `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.TMDB_API_KEY}`;
-const popular_api_path = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`
+const popular_api_path = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=`
 const movie_api_path = 'https://api.themoviedb.org/3/movie/'
-const playing_api_path = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`;
-const upcoming_api_path = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`;
-const top_rated_api_path = `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`;
+const playing_api_path = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=`;
+const upcoming_api_path = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=`;
+const top_rated_api_path = `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=`;
 
 export default async function handler(req, res) {
 
@@ -21,19 +21,19 @@ export default async function handler(req, res) {
             break;
         }
         case 'popular': {
-            api_path = popular_api_path;
+            api_path = popular_api_path + req.query.page;
             break;
         }
         case 'playing': {
-            api_path = playing_api_path;
+            api_path = playing_api_path + req.query.page;
             break;
         }
         case 'upcoming': {
-            api_path = upcoming_api_path;
+            api_path = upcoming_api_path + req.query.page;
             break;
         }
         case 'top-rated': {
-            api_path = top_rated_api_path;
+            api_path = top_rated_api_path + req.query.page;
             break;
         }
         case 'movie': {

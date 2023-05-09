@@ -176,7 +176,6 @@ export async function getServerSideProps(context) {
     const data = await fetch(`${process.env.API_PATH}/api/movie?id=${id}`)
     const movieInfo = await data.json();
     const crew = [];
-    console.log(movieInfo.recommendations.results)
     movieInfo.credits.crew.forEach((person) => {
         if(person.job === "Director" || person.job === "Writer") {
             crew.push({

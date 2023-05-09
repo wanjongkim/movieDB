@@ -40,8 +40,9 @@ body {
     grid-gap: 1rem;
 }
 
-.ba {
-    grid-template-columns: repeat(4, 1fr);
+.break {
+    flex-basis: 100%;
+    height: 0;
 }
 
 .test {
