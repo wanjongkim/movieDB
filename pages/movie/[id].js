@@ -23,9 +23,10 @@ const Movie = (props) => {
         
         return month + '/' + day + '/' + year;
     }
-
-    const authorDate = getFormattedDate(new Date(props.reviews[0].created_at));
-
+    let authorDate;
+    if(props.reviews[0] !== undefined) {
+        authorDate = getFormattedDate(new Date(props.reviews[0].created_at));
+    }
     return (
         <div className="pb-20">
             <TopNav />
@@ -112,9 +113,11 @@ const Movie = (props) => {
                     <hr className=" border-t-2 mb-10"/>
                     <div className="flex items-end gap-5">
                         <b className="text-2xl">Social</b>
-                        <b className="text-md border-b-4 border-black">Reviews {props.reviews !== undefined ? props.reviews.length: "0"}</b>
+                        <b className="text-md border-b-4 border-black">Reviews {props.reviews[0] !== undefined ? props.reviews.length: "0"}</b>
                     </div>
-                    
+                    {
+                        props.reviews[0] !== undefined ?
+                    <>    
                     <div className="flex flex-col box_shadow mt-5 rounded-lg p-5 mb-5">
                         <div className="flex items-end gap-x-7">
                             <b className="text-xl">A review by {props.reviews[0].author}</b>
@@ -126,6 +129,7 @@ const Movie = (props) => {
                             </div>
                             
                         </div>
+                        
                         <div>
                             <p className=" text-gray-400 font-thin text-base">Written by {props.reviews[0].author} on {authorDate}</p>
                         </div>
@@ -133,8 +137,13 @@ const Movie = (props) => {
                             <p className="" style={{whiteSpace: "pre-line"}}>{props.reviews[0].content}</p>
                             
                         </div>
+                    
                     </div>
                     <Link className="font-semibold text-lg" href={`${props.id}/reviews`}>Read All Reviews</Link>
+                    </> : <></>
+                    }
+
+                    
                 </div>
             </div>
 

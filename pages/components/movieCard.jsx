@@ -7,7 +7,7 @@ const MovieCard = ({id, poster_path, title, release_date, width, height, minHeig
     
     return (
         <Link href={`/movie/${id}`}>
-            <div style={{minWidth: `${minWidth}`, maxWidth: `${minWidth}`, minHeight: `${minHeight}`, height: `${height}px`, maxHeight: `${minHeight}`}} className={`shadow-lg rounded-xl flex flex-col overflow-hidden`}>
+            <div style={{minWidth: `${minWidth}`, maxWidth: `${minWidth}`, minHeight: `${minHeight}`, height: `${height}px`, maxHeight: `${minHeight}`}} className={`shadow-md shadow-[#737373] rounded-xl flex flex-col overflow-hidden`}>
                     <Image src={full_poster_path} alt={title} width={width} height={height} loading="eager"/>
                 <div className="px-2 pt-2">
                 <h1 className="font-bold">{title}</h1>
