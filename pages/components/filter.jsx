@@ -15,6 +15,10 @@ const Filter = ({movies, setMovies, dummy}) => {
     
     const certificationList = ['NR', 'G', 'PG', 'PG-13', 'R', 'NC-17']
 
+    const handleFilter = (e) => {
+
+    }
+
     const showOrHide = (e) => {
         const id = e.currentTarget.id
         switch (id) {
@@ -134,9 +138,6 @@ const Filter = ({movies, setMovies, dummy}) => {
         setSortFilter(value);
     }
 
-    const handleDate = (date) => { 
-    }
-
     return (
         <form>
             <div className="flex flex-col min-w-[270px] max-w-[270px] gap-y-3 mr-6 font-semibold">
@@ -222,7 +223,7 @@ const Filter = ({movies, setMovies, dummy}) => {
                     </div>
 
                 </div>
-                <button>
+                <button onClick={handleFilter}>
                     <div className="flex justify-center w-full rounded-3xl mt-3 border-[1px] border-solid py-3 text-white bg-[#01b4e4]">
                         <span>Search</span>
                     </div>
