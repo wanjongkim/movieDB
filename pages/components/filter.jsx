@@ -2,21 +2,63 @@ import { useRef, useState } from "react";
 import DatePicker from "react-widgets/DatePicker";
 import "react-widgets/styles.css";
 
-const Filter = ({movies, setMovies, dummy}) => {
+const Filter = ({movies, setMovies, }) => {
 
     const sortRef = useRef(null);
     const dateRef = useRef(null);
     const genresRef = useRef(null);
     const certificationRef = useRef(null);
     const [sortFilter, setSortFilter] = useState("popDesc");
+    const [dateFilter, setDateFilter] = useState("all");
+    const [genresFilter, setGenresFilter] = useState([]);
+    const [certifFilter, setCertifFilter] = useState([]);
 
     const genresList = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance',
                         'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western']
     
     const certificationList = ['NR', 'G', 'PG', 'PG-13', 'R', 'NC-17']
 
-    const handleFilter = (e) => {
+    const handleFilter = async (e) => {
+        e.preventDefault();
+        const data = {
+            page: 1,
+            genresFilter: genresFilter,
+            certifFilter: certifFilter,
+        }
+        const response = await fetch('/api/filter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        const newData = await response.json();
+        console.log(newData);
+        setMovies(newData);
+    }
 
+    const handleGenresFilter = (e) => {
+        const id = e.currentTarget.id;
+        if (genresFilter.includes(id)) {
+            e.currentTarget.classList.remove("blue_background");
+            setGenresFilter((copy) => copy.filter(genre => genre !== id))
+        }
+        else {
+            e.currentTarget.classList.add("blue_background");
+            setGenresFilter((genresFilter) => [...genresFilter, id])
+        }
+    }
+
+    const handleCertifFilter = (e) => {
+        const id = e.currentTarget.id;
+        if (certifFilter.includes(id)) {
+            e.currentTarget.classList.remove("blue_background");
+            setCertifFilter((copy) => copy.filter(certif => certif !== id))
+        }
+        else {
+            e.currentTarget.classList.add("blue_background");
+            setCertifFilter((certifFilter) => [...certifFilter, id])
+        }
     }
 
     const showOrHide = (e) => {
@@ -196,7 +238,7 @@ const Filter = ({movies, setMovies, dummy}) => {
                             {
                                 genresList.map((genre, index) => {
                                     return (
-                                        <div id={genre} key={index} className="rounded-2xl cursor-pointer w-fit border-[#737373] border-solid border-[1px] py-1 px-2 hover:bg-[#01b4e4] hover:text-white">
+                                        <div onClick={e=>handleGenresFilter(e)} id={genre} key={index} className="rounded-2xl cursor-pointer w-fit border-[#737373] border-solid border-[1px] py-1 px-2 hover:bg-[#01b4e4] hover:text-white">
                                             <span className="font-light">{genre}</span>
                                         </div>
                                     )
@@ -210,7 +252,7 @@ const Filter = ({movies, setMovies, dummy}) => {
                             {
                                 certificationList.map((certification, index) => {
                                     return (
-                                        <div id={certification} key={index} className="rounded-2xl cursor-pointer w-fit border-[#737373] border-solid border-[1px] py-1 px-2 hover:bg-[#01b4e4] hover:text-white">
+                                        <div onClick={e=>handleCertifFilter(e)} id={certification} key={index} className="rounded-2xl cursor-pointer w-fit border-[#737373] border-solid border-[1px] py-1 px-2 hover:bg-[#01b4e4] hover:text-white">
                                             <span className="font-light">{certification}</span>
                                         </div>
                                     )

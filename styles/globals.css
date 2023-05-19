@@ -45,6 +45,11 @@ body {
     height: 0;
 }
 
+.blue_background {
+    background-color:#01b4e4;
+    color: white;
+}
+
 .test {
     border: 1px solid red;
 }

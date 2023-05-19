@@ -6,7 +6,7 @@ const playing_api_path = `https://api.themoviedb.org/3/movie/now_playing?api_key
 const upcoming_api_path = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=`;
 const top_rated_api_path = `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=`;
 
-const genresList = [{
+const genresList = {
     "action": "28",
     "adventure": "12",
     "animation": "16",
@@ -26,7 +26,7 @@ const genresList = [{
     "thriller": "53",
     "war": "10752",
     "western": "37"
-}]
+}
 
 export default async function handler(req, res) {
 
@@ -66,12 +66,30 @@ export default async function handler(req, res) {
             return;
         }
         case 'filter': {
-            const page = req.query.page;
-            const genre = req.query.genre;
-            const sort = req.query.sort;
-            const discover_api_path = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${page}`
-            api_path = discover_api_path + req.query.page;
-
+            const page = req.body.page;
+            const genre = req.body.genresFilter;
+            const certifications = req.body.certifFilter;
+            let genresStr = '';
+            let genres = [];
+            let certficationStr = certifications.join(',');
+            genre.forEach((genre, index) => {
+                genre = genre.toLowerCase();
+                genres = [...genres, genresList[genre]]
+            })
+            genres.forEach((genre, index) => {
+                if(index === genres.length - 1) {
+                    genresStr += genre;
+                    }
+                else {
+                    genresStr += genre + ',';
+                }
+            })
+            const discover_api_path = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&certification=${certficationStr}&region=US&language=en-US&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${page}&with_genres=${genresStr}`
+            const response = await fetch(discover_api_path);
+            const data = await response.json();
+            console.log(data.results);
+            res.status(200).json(data.results);
+            return;
         }
         default: {
             break;
