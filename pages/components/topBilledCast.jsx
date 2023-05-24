@@ -1,4 +1,4 @@
-import CastCard from "./castCard";
+import CastCard from "@/components/castCard";
 
 const TopBilledCast = ({ cast }) => {
     

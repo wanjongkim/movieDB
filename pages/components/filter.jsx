@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import DatePicker from "react-widgets/DatePicker";
 import "react-widgets/styles.css";
 
-const Filter = ({movies, setMovies, }) => {
+const Filter = ({movies, setMovies}) => {
 
     const sortRef = useRef(null);
     const dateRef = useRef(null);

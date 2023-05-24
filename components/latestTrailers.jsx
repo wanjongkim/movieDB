@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useState } from "react";
-import YoutubeEmbed from "./embedVideo";
+import YoutubeEmbed from "../pages/components/embedVideo";
 import { useRouter } from 'next/router'
-import Overlay from "./overlay";
+import Overlay from "../pages/components/overlay";
 
 const LatestTrailers = ({latestMovieTrailers}) => {
 

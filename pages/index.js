@@ -2,8 +2,8 @@ import Head from 'next/head'
 import MovieCard from './components/movieCard';
 import styles from "../styles/Home.module.css"
 import TopNav from './components/topNav';
-import LatestTrailers from './components/latestTrailers';
-import PopularMovies from './components/popularMovies';
+import LatestTrailers from '../components/latestTrailers';
+import PopularMovies from '../components/popularMovies';
 
 export default function Home({trendingMovies, latestMovieTrailers, popular}) {
 
@@ -38,8 +38,10 @@ export default function Home({trendingMovies, latestMovieTrailers, popular}) {
               }
             </div>
           </div>
+          
           <LatestTrailers latestMovieTrailers={latestMovieTrailers}/>
           <PopularMovies popular={popular}/>
+          
         </main>
       </div>
     </>

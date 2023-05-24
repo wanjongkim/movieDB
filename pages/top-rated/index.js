@@ -1,4 +1,4 @@
-import MovieNavTemplate from "../components/movieNavTemplate"
+import MovieNavTemplate from "../../components/movieNavTemplate"
 
 const TopRated = (props) => {
     return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Filter from "./filter";
-import MovieCard from "./movieCard";
-import TopNav from "./topNav";
+import Filter from "../pages/components/filter";
+import MovieCard from "../pages/components/movieCard";
+import TopNav from "../pages/components/topNav";
 
 const MovieNavTemplate = ({ data, title, type }) => {
 
@@ -18,17 +18,14 @@ const MovieNavTemplate = ({ data, title, type }) => {
         setPageNum(pageNum + 1)
     }
 
-    const dummyFunction = (sortedMovies) => {
-        setMovies(sortedMovies);
-    }
-
     return (
         <div className="pb-10">
             <TopNav />
-            <div className="max-w-screen-2xl px-10 pt-10" style={{margin: "0 auto"}}>
-                <h1 className="font-normal text-3xl text-center lg:text-start">{title}</h1>
-                <div className="flex flex-col lg:flex-row items-center lg:items-start mt-8">
-                    <Filter movies={movies} setMovies={setMovies} dummy={dummyFunction}/>
+            <div className="max-w-screen-2xl px-10 pt-10 " style={{margin: "0 auto"}}>
+                <h1 className="font-normal text-3xl text-center">{title}</h1>
+                <div className="flex flex-col md:flex-row items-center md:items-start mt-8">
+                    
+                    <Filter movies={movies} setMovies={setMovies}/>
                     <div className="flex justify-center flex-wrap gap-5" >
                         {
                             

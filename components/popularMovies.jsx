@@ -1,4 +1,4 @@
-import MovieCard from "./movieCard";
+import MovieCard from "../pages/components/movieCard";
 
 const PopularMovies = ({popular}) => {
     return (
