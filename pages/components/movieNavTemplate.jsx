@@ -26,8 +26,8 @@ const MovieNavTemplate = ({ data, title, type }) => {
         <div className="pb-10">
             <TopNav />
             <div className="max-w-screen-2xl px-10 pt-10" style={{margin: "0 auto"}}>
-                <h1 className="font-normal text-3xl">{title}</h1>
-                <div className="flex mt-8">
+                <h1 className="font-normal text-3xl text-center lg:text-start">{title}</h1>
+                <div className="flex flex-col lg:flex-row items-center lg:items-start mt-8">
                     <Filter movies={movies} setMovies={setMovies} dummy={dummyFunction}/>
                     <div className="flex justify-center flex-wrap gap-5" >
                         {

@@ -30,15 +30,15 @@ const Movie = (props) => {
     return (
         <div className="pb-20">
             <TopNav />
-            <div className= {[styles.searchbar, 'bg-slate-100', 'text-white', 'mb-5'].join(" ")}>
-                <div className="flex max-w-screen-2xl min-w-screen-2xl" style={{margin:"0 auto", width:"100%", height: "570px"}}>
-                    <div className="ml-10 my-6 relative max-w-xs w-full">
+            <div className= {[styles.movie_backdrop, 'bg-slate-100', 'text-white', 'mb-5'].join(" ")} style={ props.backdrop_path != null ?{ backgroundImage: `url("https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,00192f,00baff)${props.backdrop_path}")`} : {}}>
+                <div className="flex md:flex-row flex-col pb-10 max-w-screen-2xl justify-center align-center content-center" style={{margin:"0 auto", width:"100%"}}>
+                    <div className="ml-10 mt-6 relative self-center max-w-xs w-full">
                         {
-                            props.image ? <Image src={props.image} alt="loading..." fill={true} priority={true}/> : <></>
+                            props.image ? <img src={props.image} alt="loading..." fill="true" priority="true"/> : <></>
                         }
                     </div>
-                    <div className="my-6 pt-10 pl-8">
-                        <div className="flex flex-col">
+                    <div className="pt-10 pl-8">
+                        <div className="flex flex-col flex-wrap">
                             <h2 className="font-bold text-4xl">
                                 {props.title}
                             </h2>
@@ -60,7 +60,7 @@ const Movie = (props) => {
                                     {
                                         props.crew.map((person) => {
                                         return (
-                                            <div>
+                                            <div key={person.name}>
                                                 <h2 className=" font-semibold">
                                                     {person.name}
                                                 </h2>
@@ -78,7 +78,7 @@ const Movie = (props) => {
             </div>
             <div className="max-w-screen-2xl px-10" style={{margin: "0 auto"}}>
                 <TopBilledCast cast={props.cast}/>
-                <div className="flex gap-x-5 max-w-full">
+                <div className="flex gap-x-5 max-w-full flex-wrap">
                     <div>
                         <b>Status</b>
                         <p>{props.status}</p>
@@ -160,7 +160,7 @@ const Movie = (props) => {
                         }
                         return (
                             <div key={movie.id} className="relative min-w-fit">
-                                <Image src={'https://www.themoviedb.org/t/p/original/' + movie.poster_path} alt="loading..." width={200} height={300} layout="fixed" />
+                                <Image src={'https://www.themoviedb.org/t/p/original' + movie.poster_path} alt="loading..." width={200} height={300} layout="fixed" />
                                 <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end px-2 py-2">
                                     <h2 className="text-white font-semibold">{movie.title}</h2>
@@ -213,7 +213,8 @@ export async function getServerSideProps(context) {
             original_language: movieInfo.original_language,
             keywords: movieInfo.keywords.keywords,
             recommendations: movieInfo.recommendations.results,
-            reviews: movieInfo.reviews.results
+            reviews: movieInfo.reviews.results,
+            backdrop_path: movieInfo.backdrop_path
         }
     }
 }

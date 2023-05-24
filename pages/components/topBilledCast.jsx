@@ -23,7 +23,7 @@ const TopBilledCast = ({ cast }) => {
                     cast !== undefined ? (
                         cast.map((actor) => {
                             return (
-                                <CastCard actor={actor}/>
+                                <CastCard key={actor.name} actor={actor}/>
                             )}
                         )
                     ) : <></>

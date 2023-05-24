@@ -16,7 +16,7 @@ export default function Home({trendingMovies, latestMovieTrailers, popular}) {
       </Head>
       <div>
         <TopNav />
-        <main className='px-10 max-w-screen-2xl' style={{margin: "0 auto"}}>
+        <main className='md:px-10 max-w-screen-2xl' style={{margin: "0 auto"}}>
           <div className={[styles.searchbar, "h-80", "flex", "flex-col", "text-white", "px-10", "pt-20", "monterrat", ""].join(" ")} >
             <span>Welcome.</span>
             <span>Millions of movies, TV shows and people to discover. Explore now.</span>
@@ -24,10 +24,10 @@ export default function Home({trendingMovies, latestMovieTrailers, popular}) {
               <input type="text" className="w-full h-12 mt-5 px-5 rounded-3xl outline-none" placeholder="Search for a movie, tv show, person..." />
             </form>
           </div>
-          <div>
+          <div className='ml-3 md:ml-0'>
             <h1 className='mb-4 mt-6 font-semibold text-2xl monterrat'>Trending</h1>
           </div>
-          <div className='flex justify-center'>
+          <div className='ml-3 md:ml-0 flex justify-center'>
             <div className='max-w-screen-2xl flex flex-row overflow-x-auto gap-x-5 gap-y-5 pb-10 pl-1'>
               {
                 trendingMovies.length <= 0 ? <></> : (

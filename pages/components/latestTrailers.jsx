@@ -30,7 +30,7 @@ const LatestTrailers = ({latestMovieTrailers}) => {
                 {
                     latestMovieTrailers !== undefined && latestMovieTrailers.length > 0 ? latestMovieTrailers.map((movie, index) => {
                         return (
-                            <div key={movie.videoKey} className="monterrat flex flex-col text-center ml-7" onClick={(e)=>handleClickedMovie(e, movie.videoKey)}>
+                            <div key={movie.videoKey} className="monterrat flex flex-col text-center ml-7 cursor-pointer" onClick={(e)=>handleClickedMovie(e, movie.videoKey)}>
                                 <div onMouseEnter={()=> {setBgImageUrl(latestMovieTrailers[index].bg)}} className="relative w-[300px] h-[168px] rounded-xl overflow-hidden hover:scale-105 transform transition duration-200">
                                     <Image className="object-fill rounded-xl z-0" src={`https://img.youtube.com/vi/${movie.videoKey}/mqdefault.jpg`} alt="img" fill={true}/>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10 z-10 absolute top-16 left-[8.5rem]">

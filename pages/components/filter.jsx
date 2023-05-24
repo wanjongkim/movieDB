@@ -12,6 +12,8 @@ const Filter = ({movies, setMovies, }) => {
     const [dateFilter, setDateFilter] = useState("all");
     const [genresFilter, setGenresFilter] = useState([]);
     const [certifFilter, setCertifFilter] = useState([]);
+    const [firstReleaseDate, setFirstReleaseDate] = useState(new Date())
+    const [secondReleaseDate, setSecondReleaseDate] = useState(new Date())
 
     const genresList = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance',
                         'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western']
@@ -24,6 +26,8 @@ const Filter = ({movies, setMovies, }) => {
             page: 1,
             genresFilter: genresFilter,
             certifFilter: certifFilter,
+            firstDate: firstReleaseDate,
+            secondDate: secondReleaseDate,
         }
         const response = await fetch('/api/filter', {
             method: 'POST',
@@ -33,7 +37,6 @@ const Filter = ({movies, setMovies, }) => {
             body: JSON.stringify(data)
         })
         const newData = await response.json();
-        console.log(newData);
         setMovies(newData);
     }
 
@@ -181,7 +184,7 @@ const Filter = ({movies, setMovies, }) => {
     }
 
     return (
-        <form>
+        <form className="mb-8">
             <div className="flex flex-col min-w-[270px] max-w-[270px] gap-y-3 mr-6 font-semibold">
                 <div className="divide-[#737373] divide-y box_shadow rounded-lg">
                     <div id="sort" onClick={(e)=>showOrHide(e)} className="cursor-pointer px-5 py-4 flex flex-wrap justify-between items-center ">
@@ -220,12 +223,14 @@ const Filter = ({movies, setMovies, }) => {
                             <div className="mt-4 font-normal">
                                 <span>From</span>
                                 <DatePicker
-                                    defaultValue={new Date()}
+                                    value={firstReleaseDate}
+                                    onChange={value => setFirstReleaseDate(value)}
                                     valueFormat={{ dateStyle: "medium" }}
                                 />
                                 <span>To</span>
                                 <DatePicker
-                                    defaultValue={new Date()}
+                                    value={secondReleaseDate}
+                                    onChange={value => setSecondReleaseDate(value)}
                                     valueFormat={{ dateStyle: "medium" }}
                                 />
                             </div>

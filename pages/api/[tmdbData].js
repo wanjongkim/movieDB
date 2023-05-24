@@ -28,6 +28,12 @@ const genresList = {
     "western": "37"
 }
 
+const convertDate = (date) => {
+    const offset = date.getTimezoneOffset()
+    date = new Date(date.getTime() - (offset*60*1000))
+    return date.toISOString().split('T')[0]
+}
+
 export default async function handler(req, res) {
 
     const {tmdbData} = req.query;
@@ -69,6 +75,12 @@ export default async function handler(req, res) {
             const page = req.body.page;
             const genre = req.body.genresFilter;
             const certifications = req.body.certifFilter;
+            const firstDate = req.body.firstDate;
+            const secondDate = req.body.secondDate;
+            let date1 = new Date(firstDate);
+            let date2 = new Date(secondDate);
+            date1 = convertDate(date1)
+            date2 = convertDate(date2);
             let genresStr = '';
             let genres = [];
             let certficationStr = certifications.join(',');
@@ -84,10 +96,10 @@ export default async function handler(req, res) {
                     genresStr += genre + ',';
                 }
             })
-            const discover_api_path = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&certification=${certficationStr}&region=US&language=en-US&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${page}&with_genres=${genresStr}`
+            const discover_api_path = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&primary_release_date.gte=${date1}&primary_release_date.lte=${date2}&certification=${certficationStr}&certification_country=US&language=en-US&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${page}&with_genres=${genresStr}`
             const response = await fetch(discover_api_path);
             const data = await response.json();
-            console.log(data.results);
+            //console.log(data.results);
             res.status(200).json(data.results);
             return;
         }
