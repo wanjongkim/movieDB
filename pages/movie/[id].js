@@ -1,7 +1,7 @@
 import Image from "next/image";
 import TopNav from "../components/topNav";
 import styles from "../../styles/Home.module.css"
-import TopBilledCast from "../components/topBilledCast";
+import TopBilledCast from "../../components/topBilledCast";
 import Link from "next/link";
 
 const Movie = (props) => {
@@ -110,7 +110,7 @@ const Movie = (props) => {
             </div>
             <div className="max-w-screen-2xl px-10" style={{margin: "0 auto"}}>
                 <div className="mt-10">
-                    <hr className=" border-t-2 mb-10"/>
+                    <hr className=" border-t-1 mb-10 border-slate-600"/>
                     <div className="flex items-end gap-5">
                         <b className="text-2xl">Social</b>
                         <b className="text-md border-b-4 border-black">Reviews {props.reviews[0] !== undefined ? props.reviews.length: "0"}</b>
@@ -149,7 +149,7 @@ const Movie = (props) => {
 
             <div className="max-w-screen-2xl px-10" style={{margin: "0 auto"}}>
                 <div className="mt-10">
-                    <hr className=" border-t-2 mb-10"/>
+                    <hr className=" border-t-1 mb-10 border-slate-400"/>
                     <b className="text-2xl">Recommendations</b>
                     <div className="flex overflow-x-auto gap-x-3 gap-y-3 mt-6">
                     
@@ -160,7 +160,7 @@ const Movie = (props) => {
                         }
                         return (
                             <div key={movie.id} className="relative min-w-fit">
-                                <Image src={'https://www.themoviedb.org/t/p/original' + movie.poster_path} alt="loading..." width={200} height={300} layout="fixed" />
+                                <Image src={'https://www.themoviedb.org/t/p/original' + movie.poster_path} alt="loading..." width={200} height={300} />
                                 <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end px-2 py-2">
                                     <h2 className="text-white font-semibold">{movie.title}</h2>

@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
-import YoutubeEmbed from "../pages/components/embedVideo";
 import { useRouter } from 'next/router'
-import Overlay from "../pages/components/overlay";
+import Overlay from "./overlay";
 
 const LatestTrailers = ({latestMovieTrailers}) => {
 
@@ -32,7 +31,7 @@ const LatestTrailers = ({latestMovieTrailers}) => {
                         return (
                             <div key={movie.videoKey} className="monterrat flex flex-col text-center ml-7 cursor-pointer" onClick={(e)=>handleClickedMovie(e, movie.videoKey)}>
                                 <div onMouseEnter={()=> {setBgImageUrl(latestMovieTrailers[index].bg)}} className="relative w-[300px] h-[168px] rounded-xl overflow-hidden hover:scale-105 transform transition duration-200">
-                                    <Image className="object-fill rounded-xl z-0" src={`https://img.youtube.com/vi/${movie.videoKey}/mqdefault.jpg`} alt="img" fill={true}/>
+                                    <Image className="object-fill rounded-xl z-0 " src={`https://img.youtube.com/vi/${movie.videoKey}/mqdefault.jpg`} alt="img" fill="true"/>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10 z-10 absolute top-16 left-[8.5rem]">
                                         <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
                                     </svg>

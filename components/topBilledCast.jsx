@@ -1,7 +1,6 @@
-import CastCard from "@/components/castCard";
+import CastCard from "./castCard";
 
 const TopBilledCast = ({ cast }) => {
-    
 
     if(cast !== undefined) {
         cast.sort(function (x,y) {
@@ -16,9 +15,9 @@ const TopBilledCast = ({ cast }) => {
     }
     
     return (
-        <div>
+        <div className="">
             <h2 className="font-bold text-2xl mb-6">Top Popular Cast</h2>
-            <div className="flex flex-row overflow-x-auto gap-x-5 gap-y-5 ">
+            <div className="flex w-full h-80 flex-row overflow-x-auto gap-x-5 gap-y-5 ">
                 {
                     cast !== undefined ? (
                         cast.map((actor) => {
